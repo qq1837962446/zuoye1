@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+mysql -uroot -p<br>
+
+mysql> create database zuoye;<br>
+
+mysql> use zuoye;<br>
+Database changed<br>
+mysql> create table commodity(<br>
+-> id int(11) not null auto_increment primary key,<br>
+-> cname.varchar(100) not null,<br>
+-> price int(100) not null,<br>
+-> cid int(100) not null,<br>
+-> number int(100) not null<br>
+-> )engine=innodb default charset =utf8;<br>
+
+商品表<br>
+mysql> create table commodity(<br>
+-> id int(11) not null auto_increment primary key,<br>
+-> cname varchar(100) not null,<br>
+-> price int(100) not null,<br>
+-> cid int(100) not null,<br>
+-> number int(100) not null<br>
+-> )engine=innodb default charset =utf8;<br>
+
+类型表<br>
+mysql> create table type(<br>
+-> id int(11) not null auto_increment primary key,<br>
+-> tname varchar(100) not null,<br>
+-> sort int(100) not null<br>
+-> )engine=innodb default charset =utf8;<br>
+Query OK, 0 rows affected (0.07 sec)<br>
+订单表<br>
+mysql> create table orders(<br>
+-> id int(11) not null auto_increment primary key,<br>
+-> oid int(100) not null,<br>
+-> sunmber int(100) not null<br>
+-> )engine=innodb default charset =utf8;<br>
+
+
+1.查询所有商品的平均价格:mysql> select avg(price) as tatal from commodity;<br>
+2.查询某个一类型商品的平均价格:mysql> select avg(price) as tatal from commodity where id=1;<br>
+3.查询某个商品的存货价值:mysql> select cname,price*number as value from commodity where id=3;<br>
+4.查询某个订单的金额:mysql> select commodity.cname,commodity.price*orders.sunmber from commodity,orders where commodity.cid=orders.oid;<br>
+5.查询价格最低三个商品:mysql> select cname,price from commodity order by price limit 0,3;<br>
+6.查询最新添加的一个商品:mysql> select cid,cname,price from commodity order by cid desc limit 0,1;<br>
+7.查询商品的所有信息以及它的类型:mysql> select * from commodity,type where commodity.id=type.id;<br>
+8.查询销售最高的三个商品:mysql> select commodity.cname,orders.sunmber-commodity.number as cha from commodity as commodity,orders as orders where commodity.cid =orders.id group by commodity.cname limit 0,3;<br>
+</body>
+</html>
